@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">FindFriends</string>
+    <string name="sign_in">Sign in</string>
+    <string name="sign_up">Sign up</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="new_user">New user?</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="online">0/0</string>
+    <string name="room_name">Room name</string>
+    <string name="user_name">User name</string>
+    <string name="user_image">User image</string>
+    <string name="users_limit">User limit</string>
+    <string name="create_room">Create room</string>
+    <string name="different_passwords_attention">You entered two different passwords. Please try again.</string>
+    <string name="login_exists_attention">Login already exists.</string>
+    <string name="incorrect_data_attention">Incorrect login or password.</string>
+    <string name="incorrect_login">Incorrect login.</string>
+    <string name="incorrect_password">Incorrect password.</string>
+    <string name="logout">logout</string>
+    <string name="leave_room">leave room</string>
+    <string name="enter_link">Enter room link</string>
+    <string name="apply">Join</string>
+    <string name="cancel">Cancel</string>
+    <string name="enter_password">Enter password.</string>
+    <string name="enter_login">Enter login.</string>
+    <string name="join">Join</string>
+    <string name="delete">Delete</string>
+    <string name="your_room_link">your room link</string>
+    <string name="your_room_name">Your room name:</string>
+    <string name="room_link">Room link:</string>
+    <string name="join_by_link">Join by link</string>
+</resources>
