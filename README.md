@@ -9,3 +9,17 @@ Create a room, invite friends and see where your friends are on the map.
 <img src="https://i.ibb.co/x66Q3L9/Screenshot-1598795371.png" width="264" height="480">
 <img src="demo.gif" width="264" height="480">
 ![]()
+
+## Configuration
+### Config.java file example
+Create Config.java file in the root.
+```java
+public class Config {
+    public static final String URL = "http://example.com";
+}
+```
+### Google API
+Add your google API key in AndroidManifest.xml file.
+```XML
+<meta-data android:name="com.google.android.geo.API_KEY" android:value="ENTER_YOUR_GOOGLE_API_KEY"/>
+```
