@@ -32,6 +32,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.maps.android.clustering.ClusterManager;
+import com.ururu2909.findfriends.util.Constants;
 import com.ururu2909.findfriends.util.MyClusterManagerRenderer;
 import com.ururu2909.findfriends.R;
 import com.ururu2909.findfriends.models.ClusterMarker;
@@ -49,7 +50,6 @@ import static com.ururu2909.findfriends.util.Constants.PERMISSIONS_REQUEST_ENABL
 
 public class RoomActivity extends AppCompatActivity implements RoomView, OnMapReadyCallback {
 
-    private static final String MAPVIEW_BUNDLE_KEY = "MAPVIEW_BUNDLE_KEY";
     ProgressBar progressBar;
     RoomPresenter presenter;
     SharedPreferences mSettings;
@@ -139,6 +139,7 @@ public class RoomActivity extends AppCompatActivity implements RoomView, OnMapRe
     public boolean isMapsEnabled(){
         final LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
+        assert manager != null;
         if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
             buildAlertMessageNoGps();
             return false;
@@ -267,6 +268,7 @@ public class RoomActivity extends AppCompatActivity implements RoomView, OnMapRe
             for (User user : users) {
                 if (mClusterMarkers.get(i).getTitle().equals(user.getLogin())) {
                     markerIsRelevant = true;
+                    break;
                 }
             }
             if (!markerIsRelevant){
@@ -319,7 +321,7 @@ public class RoomActivity extends AppCompatActivity implements RoomView, OnMapRe
     private void initGoogleMap(Bundle savedInstanceState) {
         Bundle mapViewBundle = null;
         if (savedInstanceState != null) {
-            mapViewBundle = savedInstanceState.getBundle(MAPVIEW_BUNDLE_KEY);
+            mapViewBundle = savedInstanceState.getBundle(Constants.MAPVIEW_BUNDLE_KEY);
         }
 
         mMapView.onCreate(mapViewBundle);
@@ -330,10 +332,10 @@ public class RoomActivity extends AppCompatActivity implements RoomView, OnMapRe
     public void onSaveInstanceState(@NotNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        Bundle mapViewBundle = outState.getBundle(MAPVIEW_BUNDLE_KEY);
+        Bundle mapViewBundle = outState.getBundle(Constants.MAPVIEW_BUNDLE_KEY);
         if (mapViewBundle == null) {
             mapViewBundle = new Bundle();
-            outState.putBundle(MAPVIEW_BUNDLE_KEY, mapViewBundle);
+            outState.putBundle(Constants.MAPVIEW_BUNDLE_KEY, mapViewBundle);
         }
 
         mMapView.onSaveInstanceState(mapViewBundle);

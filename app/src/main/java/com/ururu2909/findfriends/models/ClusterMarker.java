@@ -20,10 +20,6 @@ public class ClusterMarker implements ClusterItem {
         position = updatedLatLng;
     }
 
-    public void setIconPicture(int iconPicture) {
-        this.iconPicture = iconPicture;
-    }
-
     public int getIconPicture() {
         return iconPicture;
     }

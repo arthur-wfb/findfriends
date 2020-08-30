@@ -22,8 +22,6 @@ import com.ururu2909.findfriends.models.ClusterMarker;
 public class MyClusterManagerRenderer extends DefaultClusterRenderer<ClusterMarker> {
     private final IconGenerator iconGenerator;
     private final ImageView imageView;
-    private final int markerWidth;
-    private final int markerHeight;
 
     public MyClusterManagerRenderer(Context context, GoogleMap googleMap,
                                     ClusterManager<ClusterMarker> clusterManager) {
@@ -31,8 +29,8 @@ public class MyClusterManagerRenderer extends DefaultClusterRenderer<ClusterMark
 
         iconGenerator = new IconGenerator(context.getApplicationContext());
         imageView = new ImageView(context.getApplicationContext());
-        markerWidth = (int) context.getResources().getDimension(R.dimen.custom_marker_image);
-        markerHeight = (int) context.getResources().getDimension(R.dimen.custom_marker_image);
+        int markerWidth = (int) context.getResources().getDimension(R.dimen.custom_marker_image);
+        int markerHeight = (int) context.getResources().getDimension(R.dimen.custom_marker_image);
         imageView.setLayoutParams(new ViewGroup.LayoutParams(markerWidth, markerHeight));
         int padding = (int) context.getResources().getDimension(R.dimen.custom_marker_padding);
         imageView.setPadding(padding, padding, padding, padding);

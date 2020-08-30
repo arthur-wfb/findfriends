@@ -31,9 +31,8 @@ public class AvatarChooseDialog extends DialogFragment {
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this.getActivity(), 2);
         recyclerView.setLayoutManager(layoutManager);
-        AvatarsAdapter avatarsAdapter = new AvatarsAdapter(this.getActivity(), avatars, callback);
+        AvatarsAdapter avatarsAdapter = new AvatarsAdapter(avatars, callback);
         recyclerView.setAdapter(avatarsAdapter);
-        this.getDialog().setTitle("Choose avatar");
         return view;
     }
 }

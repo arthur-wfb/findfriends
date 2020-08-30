@@ -11,8 +11,6 @@ public interface LoginView {
 
     void setLoginError();
 
-    void setPasswordError();
-
     void navigateToHome();
 
     void navigateToSignUpActivity();

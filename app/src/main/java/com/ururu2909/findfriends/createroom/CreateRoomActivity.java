@@ -1,6 +1,5 @@
 package com.ururu2909.findfriends.createroom;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -14,7 +13,6 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.ururu2909.findfriends.util.Constants;
 import com.ururu2909.findfriends.R;
 import com.ururu2909.findfriends.room.RoomActivity;
 import com.ururu2909.findfriends.util.SharedPreferencesManager;

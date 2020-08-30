@@ -1,6 +1,5 @@
 package com.ururu2909.findfriends.login;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -14,7 +13,6 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.ururu2909.findfriends.util.Constants;
 import com.ururu2909.findfriends.R;
 import com.ururu2909.findfriends.home.HomeActivity;
 import com.ururu2909.findfriends.registration.RegistrationActivity;
@@ -77,11 +75,6 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
     @Override
     public void setLoginError() {
         login.setError(getString(R.string.incorrect_login));
-    }
-
-    @Override
-    public void setPasswordError() {
-        password.setError(getString(R.string.incorrect_password));
     }
 
     @Override

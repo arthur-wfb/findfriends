@@ -2,12 +2,10 @@ package com.ururu2909.findfriends.room;
 
 import android.content.SharedPreferences;
 import android.os.Handler;
-import android.util.Log;
 
 import com.ururu2909.findfriends.models.User;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -15,10 +13,9 @@ public class RoomPresenter implements RoomInteractor.OnRoomLeaveListener, RoomIn
     private RoomView roomView;
     private RoomInteractor roomInteractor;
     private SharedPreferences mSettings;
-    String userLogin;
-    JSONObject user;
-    ArrayList<User> users = new ArrayList<>();
-    boolean firstCall = true;
+    private String userLogin;
+    private ArrayList<User> users = new ArrayList<>();
+    private boolean firstCall = true;
 
     RoomPresenter(RoomView roomView, RoomInteractor roomInteractor, SharedPreferences mSettings) {
         this.roomView = roomView;
@@ -65,6 +62,12 @@ public class RoomPresenter implements RoomInteractor.OnRoomLeaveListener, RoomIn
         users = jsonArrayToArrayList(jsonUsers);
         if (firstCall){
             roomView.addMapMarkers(users);
+            for (User user : users) {
+                if (user.getLogin().equals(userLogin)){
+                    roomView.setCameraView(user.getLatitude(), user.getLongitude());
+                    break;
+                }
+            }
             firstCall = false;
         }
         roomView.updateMapMarkers(users);
@@ -75,7 +78,6 @@ public class RoomPresenter implements RoomInteractor.OnRoomLeaveListener, RoomIn
     private static final int LOCATION_UPDATE_INTERVAL = 3000;
 
     private void startUserLocationsRunnable(){
-        Log.d("xxx", "startUserLocationsRunnable: starting runnable for retrieving updated locations.");
         mHandler.postDelayed(mRunnable = () -> {
             retrieveRoomUsers();
             mHandler.postDelayed(mRunnable, LOCATION_UPDATE_INTERVAL);
@@ -87,7 +89,6 @@ public class RoomPresenter implements RoomInteractor.OnRoomLeaveListener, RoomIn
     }
 
     private void retrieveRoomUsers(){
-        Log.d("xxx", "retrieveUserLocations: retrieving location of all users in the chatroom.");
         String token = mSettings.getString("token", "");
         if (!token.equals("")){
             roomInteractor.retrieveRoomUsers(token, this);
@@ -105,7 +106,7 @@ public class RoomPresenter implements RoomInteractor.OnRoomLeaveListener, RoomIn
                 ));
             }
         } catch (Exception e){
-            Log.d("xxx", "ошибочка");
+            e.printStackTrace();
         }
         return users;
     }

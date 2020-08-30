@@ -1,6 +1,5 @@
 package com.ururu2909.findfriends.adapters;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,13 +13,10 @@ import com.ururu2909.findfriends.home.HomeActivity;
 import org.jetbrains.annotations.NotNull;
 
 public class AvatarsAdapter extends RecyclerView.Adapter<AvatarsAdapter.AvatarItemViewHolder> {
-
-    private Context context;
     private Integer[] avatars;
     private HomeActivity.AvatarListener callback;
 
-    public AvatarsAdapter(Context context, Integer[] avatars, HomeActivity.AvatarListener callback) {
-        this.context = context;
+    public AvatarsAdapter(Integer[] avatars, HomeActivity.AvatarListener callback) {
         this.avatars = avatars;
         this.callback = callback;
     }
@@ -29,8 +25,7 @@ public class AvatarsAdapter extends RecyclerView.Adapter<AvatarsAdapter.AvatarIt
     @Override
     public AvatarItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_avatar, parent,false);
-        AvatarItemViewHolder holder=new AvatarItemViewHolder(v);
-        return holder;
+        return new AvatarItemViewHolder(v);
     }
 
     @Override
@@ -48,7 +43,7 @@ public class AvatarsAdapter extends RecyclerView.Adapter<AvatarsAdapter.AvatarIt
 
         ImageView imageView;
 
-        public AvatarItemViewHolder(View itemView) {
+        AvatarItemViewHolder(View itemView) {
             super(itemView);
             imageView= itemView.findViewById(R.id.avatarImage);
         }

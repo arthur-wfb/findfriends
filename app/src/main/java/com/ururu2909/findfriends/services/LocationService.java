@@ -12,10 +12,8 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 
 import android.os.Build;
-import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
@@ -27,12 +25,13 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.ururu2909.findfriends.Config;
-import com.ururu2909.findfriends.util.Constants;
+import com.ururu2909.findfriends.util.SharedPreferencesManager;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -45,8 +44,8 @@ import okhttp3.Response;
 public class LocationService extends Service {
 
     private FusedLocationProviderClient mFusedLocationClient;
-    private final static long UPDATE_INTERVAL = 4 * 1000;  /* 4 secs */
-    private final static long FASTEST_INTERVAL = 2000; /* 2 sec */
+    private final static long UPDATE_INTERVAL = 4 * 1000;
+    private final static long FASTEST_INTERVAL = 2000;
     SharedPreferences mSettings;
 
     @Nullable
@@ -59,7 +58,7 @@ public class LocationService extends Service {
     public void onCreate() {
         super.onCreate();
 
-        mSettings = getSharedPreferences(Constants.APP_PREFERENCES, Context.MODE_PRIVATE);
+        mSettings = SharedPreferencesManager.getInstance(this);
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -69,7 +68,7 @@ public class LocationService extends Service {
                     "My Channel",
                     NotificationManager.IMPORTANCE_DEFAULT);
 
-            ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE)).createNotificationChannel(channel);
+            ((NotificationManager) Objects.requireNonNull(getSystemService(Context.NOTIFICATION_SERVICE))).createNotificationChannel(channel);
 
             Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                     .setContentTitle("")
@@ -81,7 +80,6 @@ public class LocationService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d("xxx", "onStartCommand: called.");
         getLocation();
         return START_NOT_STICKY;
     }
@@ -94,17 +92,12 @@ public class LocationService extends Service {
 
         if (ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            Log.d("xxx", "getLocation: stopping the location service.");
             stopSelf();
             return;
         }
-        Log.d("xxx", "getLocation: getting location information.");
         mFusedLocationClient.requestLocationUpdates(mLocationRequestHighAccuracy, new LocationCallback() {
                     @Override
                     public void onLocationResult(LocationResult locationResult) {
-
-                        Log.d("xxx", "onLocationResult: got location result.");
-
                         Location location = locationResult.getLastLocation();
 
                         if (location != null) {
@@ -112,7 +105,7 @@ public class LocationService extends Service {
                         }
                     }
                 },
-                Looper.myLooper()); // Looper.myLooper tells this to repeat forever until thread is destroyed
+                Looper.myLooper());
     }
 
     private void saveLocaton(final Location location){
